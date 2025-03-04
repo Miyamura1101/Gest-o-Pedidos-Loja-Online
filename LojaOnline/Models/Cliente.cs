@@ -97,7 +97,7 @@ namespace LojaOnline.Models
                         Console.WriteLine(respostaJson);
                     }else
                     {
-                        Console.WriteLine("ERRO ao enserir o Cliente no Banco de dados");
+                        Console.WriteLine("Erro ao enserir o Cliente no Banco de dados");
                     }
                 }
                 catch (System.Exception ex)
@@ -109,7 +109,7 @@ namespace LojaOnline.Models
 
         public static async Task<Cliente> AcharClientePorID(int id)
         {
-            string url = "https://localhost:7092/Cliente/AcharPorID?id={id}";
+            string url = "https://localhost:7092/Cliente/AcharPorID//%7Bid%7D";
 
             using (HttpClient cliente = new HttpClient())
             {
