@@ -36,14 +36,14 @@ namespace LojaOnlineAPI.Controllers
 
                 if (string.IsNullOrWhiteSpace(json))
                 {
-                    return BadRequest("Não a nada no Arquivo Json");
+                    return NotFound("Não a nada no Arquivo Json");
                 }
 
                 List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(json) ?? new List<Cliente>();
 
                 if (clientes.Count == 0)
                 {
-                    return BadRequest("Não foi encontrado nenhum valor valido no arquivo JSON");
+                    return NotFound("Não foi encontrado nenhum valor valido no arquivo JSON");
                 }
 
                 foreach (var cliente in clientes)
@@ -51,6 +51,9 @@ namespace LojaOnlineAPI.Controllers
                     if (!_context.Clientes.Any(c => c.Id == cliente.Id))
                     {
                         _context.Clientes.Add(cliente);
+                    }else
+                    {
+                        Console.WriteLine($"Não foi possivel a inserção do cliente com o id {cliente.Id}, pois foi encontrado um cliente com o mesmo id");
                     }
                 }
 

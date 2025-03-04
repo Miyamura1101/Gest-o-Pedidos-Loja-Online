@@ -7,10 +7,6 @@ namespace LojaOnline.Models
 {
     public class Cliente
     {
-        public Cliente()
-        {
-
-        }
         public Cliente(int id, string nome, string email, string telefone, string endereco)
         {
             Id = id;
@@ -20,11 +16,37 @@ namespace LojaOnline.Models
             Endereco = endereco;
         }
 
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string? Email { get; set; }
-        public string? Telefone { get; set; }
-        public string? Endereco { get; set; }
+        private int _id;
+        private string _nome;
+        private string _email;
+        private string _telefone;
+        private string _endereco;
+
+        public int Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+        public string Nome
+        {
+            get => _nome;
+            set => _nome = value;
+        }
+        public string Email
+        {
+            get => _email;
+            set => _email = value;
+        }
+        public string Telefone
+        {
+            get => _telefone;
+            set => _telefone = value;
+        }
+        public string Endereco
+        {
+            get => _endereco;
+            set => _endereco = value;
+        }
 
 
         public static Cliente AdicionarCliente()
@@ -50,11 +72,6 @@ namespace LojaOnline.Models
             string endereco = Console.ReadLine() ?? string.Empty;
 
             return new Cliente(Id, Nome, email, telefone, endereco);
-        }
-
-        public static implicit operator Cliente(List<Cliente> v)
-        {
-            throw new NotImplementedException();
         }
     }
 }
