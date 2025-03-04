@@ -132,4 +132,3 @@ E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\obj\Debug\net9.0\LojaOnlineAPI.g
 E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\obj\Debug\net9.0\ref\LojaOnlineAPI.dll
 E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\obj\Debug\net9.0\LojaOnlineAPI.sourcelink.json
 E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\bin\Debug\net9.0\Newtonsoft.Json.dll
-E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\bin\Debug\net9.0\Arquivos\ListaCliente.json

@@ -22,55 +22,15 @@ namespace LojaOnlineAPI.Controllers
         }
 
         [HttpPost("AdicionarCliente")]
-        public IActionResult AdicionarClienteTabela()
+        public IActionResult AdicionarClienteTabela(Cliente cliente)
         {
-            Console.WriteLine("Método AdicionarClienteTabela foi chamado!");
+            _context.Add(cliente);
+            _context.SaveChanges();
 
-            if (!System.IO.File.Exists(_caminhoArquivoListaCliente))
-            {
-                return NotFound("Arquivo Json não encontrado");
-            }
-            try
-            {
-                string json = System.IO.File.ReadAllText(_caminhoArquivoListaCliente);
-
-                if (string.IsNullOrWhiteSpace(json))
-                {
-                    return NotFound("Não a nada no Arquivo Json");
-                }
-
-                List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(json) ?? new List<Cliente>();
-
-                if (clientes.Count == 0)
-                {
-                    return NotFound("Não foi encontrado nenhum valor valido no arquivo JSON");
-                }
-
-                foreach (var cliente in clientes)
-                {
-                    if (!_context.Clientes.Any(c => c.Id == cliente.Id))
-                    {
-                        _context.Clientes.Add(cliente);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Não foi possivel a inserção do cliente com o id {cliente.Id}, pois foi encontrado um cliente com o mesmo id");
-                    }
-                }
-
-                _context.SaveChanges();
-
-                Console.WriteLine("Clientes adicionados ao banco de dados com sucesso!");
-
-                return Ok("Cliente importados com Sucesso");
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
+            return Ok(cliente);
         }
 
-        [HttpGet("AcharPorID")]
+        [HttpGet("AcharPorID/{id}")]
         public IActionResult AcharClientePeloId(int Id)
         {
             var _cliente = _context.Clientes.Find(Id);
@@ -83,7 +43,7 @@ namespace LojaOnlineAPI.Controllers
             return Ok(_cliente);
         }
 
-        [HttpGet("AcharPorNome")]
+        [HttpGet("AcharPorNome/{Nome}")]
         public IActionResult AcharPorNome(string Nome)
         {
             var _cliente = _context.Clientes.Find(Nome);
@@ -117,7 +77,7 @@ namespace LojaOnlineAPI.Controllers
             return Ok("Alteração realizadas com sucesso");
         }
 
-        [HttpDelete("Deletar")]
+        [HttpDelete("Deletar/{id}")]
         public IActionResult DeletarCliente(int id)
         {
             var _cliente = _context.Clientes.Find(id);

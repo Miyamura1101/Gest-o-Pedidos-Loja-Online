@@ -1,44 +1,23 @@
-﻿using LojaOnline.Models;
+﻿using System.Threading.Tasks;
+using LojaOnline.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-string op;
-
-do
+public class Program
 {
-    Cliente cliente = Cliente.AdicionarCliente();
+    public static async Task Main(string[] args)
+    {
+        string p = " ";
 
-    string caminhoArquivo = "Arquivos/ListaCliente.json";
+        do
+        {
+            Cliente cliente = Cliente.AdicionarCliente();
 
-    List<Cliente> clientes = new List<Cliente>();
+            await Cliente.SalvarNoBanco(cliente);
 
-    // if (File.Exists(caminhoArquivo))
-    // {
-    //     string output = File.ReadAllText(caminhoArquivo);
+            p = Console.ReadLine();
 
-    //     if (!string.IsNullOrWhiteSpace(output))
-    //     {
-    //         try
-    //         {
-    //             clientes = JsonConvert.DeserializeObject<List<Cliente>>(output) ?? new List<Cliente>();
-    //         }
-    //         catch (System.Exception ex)
-    //         {
-    //             Console.WriteLine($"ERRO {ex.Message}");
-    //             clientes = new List<Cliente>();
-    //         }
-    //     }
-    // }
+        } while (p == "y");
 
-    clientes.Add(cliente);
-
-    string serialization = JsonConvert.SerializeObject(clientes, Formatting.Indented);
-
-    File.WriteAllText(caminhoArquivo, serialization);
-
-    Console.WriteLine(serialization);
-
-    op = Console.ReadLine().ToLower();
-    
-} while (op == "y");
-
+    }
+}
