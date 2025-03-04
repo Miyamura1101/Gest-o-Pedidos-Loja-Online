@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "fzMYBEnrF0D2wUKdR/TX4kSc7drKU6D3zK57evyoseo=",
+  "Source": "LojaOnlineAPI",
+  "BasePath": "_content/LojaOnlineAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
