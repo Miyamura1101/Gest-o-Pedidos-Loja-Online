@@ -130,3 +130,6 @@ E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\obj\Debug\net9.0\refint\LojaOnli
 E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\obj\Debug\net9.0\LojaOnlineAPI.pdb
 E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\obj\Debug\net9.0\LojaOnlineAPI.genruntimeconfig.cache
 E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\obj\Debug\net9.0\ref\LojaOnlineAPI.dll
+E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\obj\Debug\net9.0\LojaOnlineAPI.sourcelink.json
+E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\bin\Debug\net9.0\Newtonsoft.Json.dll
+E:\C#\Gestão-Pedidos-Loja-Online\LojaOnlineAPI\bin\Debug\net9.0\Arquivos\ListaCliente.json

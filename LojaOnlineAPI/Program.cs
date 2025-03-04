@@ -9,6 +9,7 @@ builder.Services.AddDbContext<LojaContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConexaoPadrao")));
 
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
