@@ -9,26 +9,26 @@ do
     Cliente cliente = Cliente.AdicionarCliente();
 
     string caminhoArquivo = "Arquivos/ListaCliente.json";
-    
+
     List<Cliente> clientes = new List<Cliente>();
 
-    if (File.Exists(caminhoArquivo))
-    {
-        string output = File.ReadAllText(caminhoArquivo);
+    // if (File.Exists(caminhoArquivo))
+    // {
+    //     string output = File.ReadAllText(caminhoArquivo);
 
-        if (!string.IsNullOrWhiteSpace(output))
-        {
-            try
-            {
-                clientes = JsonConvert.DeserializeObject<List<Cliente>>(output) ?? new List<Cliente>();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine($"ERRO {ex.Message}");
-                clientes = new List<Cliente>();
-            }
-        }
-    }
+    //     if (!string.IsNullOrWhiteSpace(output))
+    //     {
+    //         try
+    //         {
+    //             clientes = JsonConvert.DeserializeObject<List<Cliente>>(output) ?? new List<Cliente>();
+    //         }
+    //         catch (System.Exception ex)
+    //         {
+    //             Console.WriteLine($"ERRO {ex.Message}");
+    //             clientes = new List<Cliente>();
+    //         }
+    //     }
+    // }
 
     clientes.Add(cliente);
 
@@ -39,5 +39,6 @@ do
     Console.WriteLine(serialization);
 
     op = Console.ReadLine().ToLower();
+    
 } while (op == "y");
 
