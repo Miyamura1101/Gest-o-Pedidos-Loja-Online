@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 
 namespace LojaOnline.Models
@@ -51,30 +52,52 @@ namespace LojaOnline.Models
             set => _endereco = value;
         }
 
+        //public abstract T AcharClienteGenerico<T>(int id);
 
+        public static void MostrarCliente(Cliente cliente)
+        {
+            Console.WriteLine($"Id ------- {cliente.Id}");
+            Console.WriteLine($"Nome ----- {cliente.Nome}");
+            Console.WriteLine($"Email ---- {cliente.Email}");
+            Console.WriteLine($"Telefone - {cliente.Telefone}");
+            Console.WriteLine($"Endereco - {cliente.Endereco}");
+        }
         public static Cliente AdicionarCliente()
         {
-            Console.WriteLine("Digite o Id do Cliente: ");
-            int Id = Convert.ToInt32(Console.ReadLine());
-
-            string Nome;
-            do
+            try
             {
-                Console.WriteLine("Digite o nome do Cliente: ");
-                Nome = Console.ReadLine() ?? string.Empty;
+                int Id;
+                do
+                {
+                    Console.WriteLine("Digite o Id do Cliente: ");
+                    Id = Convert.ToInt32(Console.ReadLine());
 
-            } while (string.IsNullOrEmpty(Nome));
+                } while (Id <= 0);
 
-            Console.Write("Digite o email do Cliente: ");
-            string email = Console.ReadLine() ?? string.Empty;
+                string Nome;
+                do
+                {
+                    Console.WriteLine("Digite o nome do Cliente: ");
+                    Nome = Console.ReadLine() ?? string.Empty;
 
-            Console.Write("Digite o Telefone do Cliente: ");
-            string telefone = Console.ReadLine() ?? string.Empty;
+                } while (string.IsNullOrEmpty(Nome));
 
-            Console.Write("Digite o Endereço do Cliente: ");
-            string endereco = Console.ReadLine() ?? string.Empty;
+                Console.Write("Digite o email do Cliente: ");
+                string email = Console.ReadLine() ?? string.Empty;
 
-            return new Cliente(Id, Nome, email, telefone, endereco);
+                Console.Write("Digite o Telefone do Cliente: ");
+                string telefone = Console.ReadLine() ?? string.Empty;
+
+                Console.Write("Digite o Endereço do Cliente: ");
+                string endereco = Console.ReadLine() ?? string.Empty;
+
+                return new Cliente(Id, Nome, email, telefone, endereco);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine($"ERRo: {ex}");
+                return null;
+            }
         }
 
         public static async Task SalvarNoBanco(Cliente cliente)
@@ -95,7 +118,8 @@ namespace LojaOnline.Models
                         string respostaJson = await resposta.Content.ReadAsStringAsync();
                         Console.WriteLine("Clinete criado com sucesso");
                         Console.WriteLine(respostaJson);
-                    }else
+                    }
+                    else
                     {
                         Console.WriteLine("Erro ao enserir o Cliente no Banco de dados");
                     }
@@ -107,40 +131,63 @@ namespace LojaOnline.Models
             }
         }
 
-        public static async Task<Cliente> AcharClientePorID(int id)
+        public static async Task AtualizarClienteNoBanco(int id, Cliente cliente)
         {
-            string url = "https://localhost:7092/Cliente/AcharPorID//%7Bid%7D";
+            string url = $"https://localhost:7092/AtualizarClienteID/{id}";
+
+            string json = JsonConvert.SerializeObject(cliente);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage resposta = await client.PutAsync(url, content);
+
+                    if (resposta.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Alteração realizada com sucesso");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Não foi possivel realizar a alteração, pois não exite o id corespondente");
+                    }
+
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine($"ERRO: {ex.Message}");
+                }
+            }
+
+        }
+        public static async Task<bool> DeletarClientePorId(int id)
+        {
+            string url = $"https://localhost:7092/Cliente/Deletar/{id}";
 
             using (HttpClient cliente = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage requestMessage = await cliente.GetAsync(url);
+                    HttpResponseMessage resposta = await cliente.DeleteAsync(url);
 
-                    if (requestMessage.IsSuccessStatusCode)
+                    if (resposta.IsSuccessStatusCode)
                     {
-                        string json = await requestMessage.Content.ReadAsStringAsync();
-                        Cliente clienteID = JsonConvert.DeserializeObject<Cliente>(json) ?? new Cliente(-1, " ", " ", " ", " ");
-
-                        return clienteID;
+                        Console.WriteLine("Cliente deletado com sucesso");
+                        return true;
                     }
                     else
                     {
-                        if (requestMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
-                        {
-                            Console.WriteLine("Cliente não Foi encontrado");
-                            return new Cliente(-2, " ", " ", " ", " "); // Como posso fazer esse return de uma forma legal
-                        }
+                        Console.WriteLine("Cliente não existe");
+                        return false;
                     }
                 }
                 catch (System.Exception ex)
                 {
                     Console.WriteLine($"ERRO: {ex.Message}");
-                    return new Cliente(-3, " ", " ", " ", " ");
+                    return false;
                 }
             }
-
-            return new Cliente(-4, " ", " ", " ", " ");
         }
     }
 }

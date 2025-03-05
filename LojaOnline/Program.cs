@@ -11,9 +11,16 @@ public class Program
 
         do
         {
-            Cliente cliente = Cliente.AdicionarCliente();
+            // Cliente cliente = Cliente.AdicionarCliente();
 
-            await Cliente.SalvarNoBanco(cliente);
+            // await Cliente.SalvarNoBanco(cliente);
+
+            Console.WriteLine("Qual é o Id");
+
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            //await Cliente.DeletarClientePorId(id);
+
 
             p = Console.ReadLine();
 

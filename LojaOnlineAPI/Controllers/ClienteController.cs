@@ -87,6 +87,9 @@ namespace LojaOnlineAPI.Controllers
                 return NotFound("Não existe cliente com esse Id");
             }
 
+            _context.Clientes.Remove(_cliente); ;
+            _context.SaveChanges();
+            
             return Ok("Cliente deletado com sucesso");
         }
     }
