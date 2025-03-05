@@ -24,7 +24,6 @@ public class Program
                 case 1:
                     do
                     {
-                        Console.WriteLine("cls");
                         Console.WriteLine("1 - Listagem de Clientes");
                         Console.WriteLine("2 - Adicionar Cliente");
                         Console.WriteLine("3 - AChar Cliente Por Id");

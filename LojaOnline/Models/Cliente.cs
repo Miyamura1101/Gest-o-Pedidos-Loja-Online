@@ -56,9 +56,9 @@ namespace LojaOnline.Models
         public static void MostrarCliente(Cliente cliente)
         {
             Console.WriteLine("------------------------------");
-            Console.WriteLine($"Id ------------- {cliente.Id}");
-            Console.WriteLine($"Nome --------- {cliente.Nome}");
-            Console.WriteLine($"Email ------- {cliente.Email}");
+            Console.WriteLine($"Id ------- {cliente.Id}");
+            Console.WriteLine($"Nome ----- {cliente.Nome}");
+            Console.WriteLine($"Email ---- {cliente.Email}");
             Console.WriteLine($"Telefone - {cliente.Telefone}");
             Console.WriteLine($"Endereco - {cliente.Endereco}");
             Console.WriteLine("------------------------------");
