@@ -37,6 +37,18 @@
         }
       }
     },
+    "/Cliente/ListarTodosClientes": {
+      "get": {
+        "tags": [
+          "Cliente"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Cliente/AcharPorID/{id}": {
       "get": {
         "tags": [
@@ -82,7 +94,7 @@
         }
       }
     },
-    "/Cliente/AtualizarClienteID/{id}": {
+    "/Cliente/AtualizarClienteId/{id}": {
       "put": {
         "tags": [
           "Cliente"

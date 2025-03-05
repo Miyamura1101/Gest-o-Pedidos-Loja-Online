@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using LojaOnline.Services;
 using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 
@@ -52,15 +53,15 @@ namespace LojaOnline.Models
             set => _endereco = value;
         }
 
-        //public abstract T AcharClienteGenerico<T>(int id);
-
         public static void MostrarCliente(Cliente cliente)
         {
-            Console.WriteLine($"Id ------- {cliente.Id}");
-            Console.WriteLine($"Nome ----- {cliente.Nome}");
-            Console.WriteLine($"Email ---- {cliente.Email}");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"Id ------------- {cliente.Id}");
+            Console.WriteLine($"Nome --------- {cliente.Nome}");
+            Console.WriteLine($"Email ------- {cliente.Email}");
             Console.WriteLine($"Telefone - {cliente.Telefone}");
             Console.WriteLine($"Endereco - {cliente.Endereco}");
+            Console.WriteLine("------------------------------");
         }
         public static Cliente AdicionarCliente()
         {
@@ -99,7 +100,45 @@ namespace LojaOnline.Models
                 return null;
             }
         }
+        public static async Task<List<Cliente>> ListarTodosCliente()
+        {
+            string url = "https://localhost:7092/Cliente/ListarTodosClientes";
 
+            using (HttpClient cliente = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage resposta = await cliente.GetAsync(url);
+
+                    if (resposta.IsSuccessStatusCode)
+                    {
+                        string json = await resposta.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<Cliente>>(json) ?? new List<Cliente>();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Não foi possivel fazer a conversão");
+                        return new List<Cliente>();
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine($"ERRO: {ex.Message}");
+                    return new List<Cliente>();
+                }
+            }
+        }
+
+        public static async Task<Cliente> AcharClientePorId(int id)
+        {
+            return await ClienteService.AcharCliente(id);
+        }
+
+        public static async Task<Cliente> AcharClientePorNome(string nome)
+        {
+           return await ClienteService.AcharCliente(nome);
+        }
+        
         public static async Task SalvarNoBanco(Cliente cliente)
         {
             string url = "https://localhost:7092/Cliente/AdicionarCliente";
@@ -133,7 +172,7 @@ namespace LojaOnline.Models
 
         public static async Task AtualizarClienteNoBanco(int id, Cliente cliente)
         {
-            string url = $"https://localhost:7092/AtualizarClienteID/{id}";
+            string url = $"https://localhost:7092/AtualizarClienteId/{id}";
 
             string json = JsonConvert.SerializeObject(cliente);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -161,7 +200,7 @@ namespace LojaOnline.Models
             }
 
         }
-        public static async Task<bool> DeletarClientePorId(int id)
+        public static async Task DeletarClientePorId(int id)
         {
             string url = $"https://localhost:7092/Cliente/Deletar/{id}";
 
@@ -174,18 +213,15 @@ namespace LojaOnline.Models
                     if (resposta.IsSuccessStatusCode)
                     {
                         Console.WriteLine("Cliente deletado com sucesso");
-                        return true;
                     }
                     else
                     {
                         Console.WriteLine("Cliente não existe");
-                        return false;
                     }
                 }
                 catch (System.Exception ex)
                 {
                     Console.WriteLine($"ERRO: {ex.Message}");
-                    return false;
                 }
             }
         }

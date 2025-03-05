@@ -30,6 +30,19 @@ namespace LojaOnlineAPI.Controllers
             return Ok(cliente);
         }
 
+        [HttpGet("ListarTodosClientes")]
+        public IActionResult ListarTodosClientes()
+        {
+            var _cliente = _context.Clientes.ToList();
+
+            if (_cliente == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_cliente);
+        }
+
         [HttpGet("AcharPorID/{id}")]
         public IActionResult AcharClientePeloId(int Id)
         {
@@ -56,7 +69,7 @@ namespace LojaOnlineAPI.Controllers
             return Ok(_cliente);
         }
 
-        [HttpPut("AtualizarClienteID/{id}")]
+        [HttpPut("AtualizarClienteId/{id}")]
         public IActionResult Atualizar(int id, Cliente cliente)
         {
             var _cliente = _context.Clientes.Find(id);
@@ -89,7 +102,7 @@ namespace LojaOnlineAPI.Controllers
 
             _context.Clientes.Remove(_cliente); ;
             _context.SaveChanges();
-            
+
             return Ok("Cliente deletado com sucesso");
         }
     }
