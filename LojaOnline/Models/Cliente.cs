@@ -156,7 +156,6 @@ namespace LojaOnline.Models
                     {
                         string respostaJson = await resposta.Content.ReadAsStringAsync();
                         Console.WriteLine("Clinete criado com sucesso");
-                        Console.WriteLine(respostaJson);
                     }
                     else
                     {

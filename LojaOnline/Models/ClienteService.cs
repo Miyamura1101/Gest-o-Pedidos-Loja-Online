@@ -19,7 +19,19 @@ namespace LojaOnline.Services
         /// <returns>Retorna um Cliente encontrado ou um objeto padrão caso não exista</returns>
         public static async Task<Cliente> AcharCliente<T>(T procura)
         {
-            string url = $"https://localhost:7092/Cliente/AcharPorID/{procura}";
+            string urlBase = $"https://localhost:7092/Cliente/";
+            string url;
+            
+            if (procura is int)
+            {
+                url = $"AcharPorId/{procura}";
+            }
+            else
+            {
+                url = $"AcharPorNome/{procura}";
+            }
+
+            url = urlBase + url;
 
             using (HttpClient client = new HttpClient())
             {

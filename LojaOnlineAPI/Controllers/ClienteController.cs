@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LojaOnlineAPI.Context;
 using LojaOnlineAPI.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace LojaOnlineAPI.Controllers
@@ -43,10 +44,10 @@ namespace LojaOnlineAPI.Controllers
             return Ok(_cliente);
         }
 
-        [HttpGet("AcharPorID/{id}")]
-        public IActionResult AcharClientePeloId(int Id)
+        [HttpGet("AcharPorId/{id}")]
+        public IActionResult AcharCliente(int id)
         {
-            var _cliente = _context.Clientes.Find(Id);
+            var _cliente = _context.Clientes.Find(id);
 
             if (_cliente == null)
             {
@@ -56,10 +57,10 @@ namespace LojaOnlineAPI.Controllers
             return Ok(_cliente);
         }
 
-        [HttpGet("AcharPorNome/{Nome}")]
-        public IActionResult AcharPorNome(string Nome)
+        [HttpGet("AcharPorNome/{nome}")]
+        public IActionResult AcharPorNome(string nome)
         {
-            var _cliente = _context.Clientes.Find(Nome);
+            var _cliente = _context.Clientes.FirstOrDefault(c => c.Nome == nome);
 
             if (_cliente == null)
             {

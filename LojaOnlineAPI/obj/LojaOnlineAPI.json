@@ -49,14 +49,14 @@
         }
       }
     },
-    "/Cliente/AcharPorID/{id}": {
+    "/Cliente/AcharPorId/{id}": {
       "get": {
         "tags": [
           "Cliente"
         ],
         "parameters": [
           {
-            "name": "Id",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -72,14 +72,14 @@
         }
       }
     },
-    "/Cliente/AcharPorNome/{Nome}": {
+    "/Cliente/AcharPorNome/{nome}": {
       "get": {
         "tags": [
           "Cliente"
         ],
         "parameters": [
           {
-            "name": "Nome",
+            "name": "nome",
             "in": "path",
             "required": true,
             "schema": {
