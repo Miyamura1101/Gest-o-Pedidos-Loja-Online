@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 
 namespace LojaOnlineAPI.Entities
 {
@@ -11,6 +12,7 @@ namespace LojaOnlineAPI.Entities
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
+        public decimal Desconto { get; set; }
         public int Estoque { get; set; }
         
     }

@@ -15,7 +15,7 @@ namespace LojaOnlineAPI.Controllers
     public class ClienteController : ControllerBase
     {
         private readonly LojaContext _context;
-        private readonly string _caminhoArquivoListaCliente = "E:/C#/Gestão-Pedidos-Loja-Online/LojaOnline/Arquivos/ListaCliente.json";
+        // private readonly string _caminhoArquivoListaCliente = "E:/C#/Gestão-Pedidos-Loja-Online/LojaOnline/Arquivos/ListaCliente.json";
 
         public ClienteController(LojaContext context)
         {
