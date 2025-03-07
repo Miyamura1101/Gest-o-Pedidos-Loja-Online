@@ -54,6 +54,30 @@ namespace LojaOnlineAPI.Controllers
             return Ok(produto);
         }
 
+        [HttpPatch("Desconto/{Id}")]
+        public async Task<IActionResult> DescontoPorId(int Id, [FromBody] decimal Desconto)
+        {
+            var produto = await _context.Produtos.FindAsync(Id);
+
+            if (produto == null)
+            {
+                return NotFound("Produto não encontrado");
+            }
+
+            produto.Desconto = Desconto;
+
+            produto.Preco = produto.Preco - (produto.Preco * (Desconto / 100));
+
+            _context.Produtos.Update(produto);
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                Messagem = "Desconto atualizado con sucesso",
+                PrecoNovo = produto.Preco
+            });
+        } 
+
         [HttpDelete("RetirarProdutoEstoqueId/{Id}")]
         public IActionResult RetiraProdutoEstoqueId(int Id)
         {
@@ -69,7 +93,5 @@ namespace LojaOnlineAPI.Controllers
 
             return Ok(produto);
         }
-
-
     }
 }
